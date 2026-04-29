@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { DM_Sans, JetBrains_Mono, Syne } from "next/font/google";
+import { JetBrains_Mono, Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { PageTransition } from "@/components/PageTransition";
 import "./globals.css";
 
-const syne = Syne({ subsets: ["latin"], variable: "--font-display", weight: ["400", "500", "600", "700", "800"] });
-const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-body" });
+const sourceSerif = Source_Serif_4({ subsets: ["latin"], variable: "--font-display", weight: ["400", "500", "600", "700"] });
+const sourceSans = Source_Sans_3({ subsets: ["latin"], variable: "--font-body", weight: ["400", "500", "600", "700"] });
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", weight: ["400", "500"] });
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${sourceSerif.variable} ${sourceSans.variable} ${jetbrainsMono.variable}`}>
       <body>
         <div className="page-shell">
           <Nav />
