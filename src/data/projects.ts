@@ -51,7 +51,7 @@ export const PROJECTS: Project[] = [
     links: [
       { label: "Details", href: "/projects/phase-aware-laparoscopic-camera-control", kind: "primary" },
       { label: "GitHub", href: "https://github.com/mnm-21/Phase_Aware_ACC", external: true },
-      { label: "Report Pending", disabled: true },
+      { label: "Report", href: "/project_report.pdf", external: true },
     ],
     detail: {
       overview: [

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Lock } from "lucide-react";
+import { ArrowLeft, Code, ExternalLink, FileText, Lock } from "lucide-react";
 import { Button } from "@/components/Button";
 import { MediaBlock } from "@/components/MediaBlock";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -34,6 +34,15 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
   if (!project) notFound();
   const related = PROJECTS.filter((item) => item.id !== project.id).slice(0, 3);
 
+  const displayLinks = project.links
+    .filter((l) => l.label !== "Details")
+    .filter((l) => !(l.label === "Paper" && project.links.some((ll) => ll.label === "DOI")))
+    .map((l) => {
+      if (l.label === "GitHub") return { ...l, label: "Repo", icon: Code };
+      if (l.label === "DOI") return { ...l, label: "Paper", icon: FileText };
+      return { ...l, icon: undefined };
+    });
+
   return (
     <>
       <section className="container detail-hero">
@@ -51,20 +60,18 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
             <Button href="/projects" variant="secondary" icon={ArrowLeft}>
               Projects
             </Button>
-            {project.links
-              .filter((link) => link.label !== "Details")
-              .map((link) => (
-                <Button
-                  disabled={link.disabled}
-                  external={link.external}
-                  href={link.disabled ? undefined : link.href}
-                  icon={link.disabled ? Lock : ExternalLink}
-                  key={link.label}
-                  variant={link.kind === "primary" ? "primary" : "secondary"}
-                >
-                  {link.label}
-                </Button>
-              ))}
+            {displayLinks.map((link) => (
+              <Button
+                disabled={link.disabled}
+                external={link.external}
+                href={link.disabled ? undefined : link.href}
+                icon={link.disabled ? Lock : (link as any).icon || ExternalLink}
+                key={link.label}
+                variant={link.kind === "primary" ? "primary" : "secondary"}
+              >
+                {link.label}
+              </Button>
+            ))}
           </div>
         </div>
         <div className="detail-media-shell">

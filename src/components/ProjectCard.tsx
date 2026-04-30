@@ -1,4 +1,4 @@
-import { ArrowRight, ExternalLink, Lock } from "lucide-react";
+import { ArrowLeft, ArrowRight, Code, ExternalLink, FileText, Lock } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/Button";
 import { MediaBlock } from "@/components/MediaBlock";
@@ -21,7 +21,7 @@ export function ProjectCard({ project, variant = "selected", index = 0 }: Projec
           <Tag size="sm" variant="teal">
             {project.category}
           </Tag>
-          <h3 className="mt-3 font-display text-lg font-bold">{project.shortTitle}</h3>
+          <h3 className="mt-3 font-display text-lg font-bold" style={{ display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{project.shortTitle}</h3>
         </div>
       </Link>
     );
@@ -64,25 +64,37 @@ export function ProjectCard({ project, variant = "selected", index = 0 }: Projec
     );
   }
 
+  const displayLinks = project.links
+    .filter((l) => !(l.label === "Paper" && project.links.some((ll) => ll.label === "DOI")))
+    .map((l) => {
+      if (l.label === "GitHub") return { ...l, label: "Repo", icon: Code };
+      if (l.label === "DOI") return { ...l, label: "Paper", icon: FileText };
+      return { ...l, icon: undefined };
+    });
+
   return (
-    <article className={cn("project-card", index === 0 ? "featured" : "selected")}>
+    <article className="project-card">
       <Link className="card-hit-area" href={`/projects/${project.id}`} aria-label={`View ${project.shortTitle} details`} />
-      <MediaBlock {...project.media} priority={index === 0} />
-      <div className="project-shade" />
-      <div className="project-content">
-        <Tag variant="teal">{project.category}</Tag>
+      <div className="media-shell">
+        <MediaBlock {...project.media} priority={index < 3} />
+      </div>
+      <div className="project-info">
+        <Tag variant="teal" size="sm" className="mb-4">
+          {project.category}
+        </Tag>
         <h3 className="project-title">{project.shortTitle}</h3>
         <p className="project-summary">{project.summary}</p>
-        <div className="project-actions">
-          {project.links.slice(0, 3).map((link) => (
+        <div className="mt-auto pt-6 flex flex-wrap gap-2">
+          {displayLinks.map((link) => (
             <Button
               key={link.label}
               href={link.disabled ? undefined : link.href}
               external={link.external}
-              disabled={link.disabled}
               variant={link.kind === "primary" ? "primary" : "secondary"}
-              icon={link.disabled ? Lock : link.external ? ExternalLink : ArrowRight}
               size="sm"
+              disabled={link.disabled}
+              className="px-3"
+              icon={(link as any).icon || (link.external ? ExternalLink : ArrowRight)}
             >
               {link.label}
             </Button>

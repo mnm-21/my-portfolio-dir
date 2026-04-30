@@ -65,7 +65,7 @@ export function ContactForm() {
           {errors[field] ? <div className="field-error">x {errors[field]?.message}</div> : null}
         </div>
       ))}
-      <Button type="submit" loading={status === "loading"} icon={Send} className={status === "success" ? "bg-emerald-400" : ""}>
+      <Button type="submit" loading={status === "loading"} icon={Send}>
         {status === "loading" ? "Sending..." : status === "success" ? "Message Sent" : "Send Message"}
       </Button>
       {note ? <p className="form-note">{note}</p> : null}

@@ -12,7 +12,6 @@ const LINKS = [
   { href: "/projects", label: "Projects" },
   { href: "/skills", label: "Skills" },
   { href: "/journey", label: "Journey" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export function Nav() {
@@ -45,7 +44,7 @@ export function Nav() {
             ))}
           </nav>
           <Link className="nav-hire" href="/contact">
-            Hire Me -&gt;
+            Contact Me -&gt;
           </Link>
           <button
             className="nav-toggle"

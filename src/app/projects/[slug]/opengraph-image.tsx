@@ -26,7 +26,7 @@ export default function Image({ params }: { params: { slug: string } }) {
           fontFamily: "Arial",
         }}
       >
-        <div style={{ color: "#00E5CC", fontSize: 28 }}>{project?.category || "Project"}</div>
+        <div style={{ color: "#E3D3B7", fontSize: 28 }}>{project?.category || "Project"}</div>
         <div style={{ fontSize: 78, fontWeight: 800, lineHeight: 0.98 }}>{project?.shortTitle || "Mayank Chandak"}</div>
         <div style={{ color: "#9BA8BA", fontSize: 26 }}>Mayank Chandak / Robotics / RL / Vision</div>
       </div>

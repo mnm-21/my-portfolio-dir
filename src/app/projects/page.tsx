@@ -12,7 +12,7 @@ export default function ProjectsPage() {
     <div className="container">
       <section className="page-hero" aria-labelledby="projects-title">
         <h1 className="page-title" id="projects-title">
-          Selected Works
+          Projects
         </h1>
         <p className="page-lead">
           Research and engineering across reinforcement learning, robotics, computational imaging, and multi-agent systems.

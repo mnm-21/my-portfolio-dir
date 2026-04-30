@@ -17,19 +17,27 @@ function matches(project: Project, filter: string) {
 }
 
 export function ProjectsClient({ projects }: { projects: Project[] }) {
-  const [filter, setFilter] = useState("All");
-  const filtered = useMemo(() => projects.filter((project) => matches(project, filter)), [projects, filter]);
+  // const [filter, setFilter] = useState("All");
+  // const filtered = useMemo(() => projects.filter((project) => matches(project, filter)), [projects, filter]);
+  const filtered = projects;
 
   return (
     <>
-      <div className="filter-bar" aria-label="Project filters">
-        {FILTERS.map((item) => (
-          <button className={cn("filter-chip", item === filter && "active")} key={item} type="button" onClick={() => setFilter(item)}>
-            {item}
-          </button>
-        ))}
-      </div>
-      <div className="projects-list">
+      {/* <div className="filter-bar-container">
+        <div className="filter-bar" aria-label="Project filters">
+          {FILTERS.map((item) => (
+            <button
+              className={cn("filter-chip", item === filter && "active")}
+              key={item}
+              type="button"
+              onClick={() => setFilter(item)}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+      </div> */}
+      <div className="projects-grid">
         <AnimatePresence mode="popLayout">
           {filtered.map((project, index) => (
             <motion.div
@@ -40,7 +48,7 @@ export function ProjectsClient({ projects }: { projects: Project[] }) {
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.35, delay: index * 0.04 }}
             >
-              <ProjectCard project={project} variant="hero" index={index} />
+              <ProjectCard project={project} variant="selected" index={index} />
             </motion.div>
           ))}
         </AnimatePresence>
