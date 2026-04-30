@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Code, ExternalLink, FileText, Lock } from "lucide-react";
+import { ArrowLeft, Code, ExternalLink, FileText, Lock, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/Button";
 import { MediaBlock } from "@/components/MediaBlock";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -65,7 +65,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
                 disabled={link.disabled}
                 external={link.external}
                 href={link.disabled ? undefined : link.href}
-                icon={link.disabled ? Lock : (link as any).icon || ExternalLink}
+                icon={link.disabled ? Lock : (link as import("@/data/projects").ProjectLink & { icon?: LucideIcon }).icon || ExternalLink}
                 key={link.label}
                 variant={link.kind === "primary" ? "primary" : "secondary"}
               >

@@ -1,9 +1,9 @@
-import { ArrowLeft, ArrowRight, Code, ExternalLink, FileText, Lock } from "lucide-react";
+import { ArrowRight, Code, ExternalLink, FileText, Lock, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/Button";
 import { MediaBlock } from "@/components/MediaBlock";
 import { Tag } from "@/components/Tag";
-import type { Project } from "@/data/projects";
+import type { Project, ProjectLink } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
 interface ProjectCardProps {
@@ -94,7 +94,7 @@ export function ProjectCard({ project, variant = "selected", index = 0 }: Projec
               size="sm"
               disabled={link.disabled}
               className="px-3"
-              icon={(link as any).icon || (link.external ? ExternalLink : ArrowRight)}
+              icon={(link as ProjectLink & { icon?: LucideIcon }).icon || (link.external ? ExternalLink : ArrowRight)}
             >
               {link.label}
             </Button>

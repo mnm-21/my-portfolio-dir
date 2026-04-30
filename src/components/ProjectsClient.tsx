@@ -1,20 +1,20 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useMemo, useState } from "react";
+// import { useMemo, useState } from "react";
 import { ProjectCard } from "@/components/ProjectCard";
 import type { Project } from "@/data/projects";
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils";
 
-const FILTERS = ["All", "Robotics", "Reinforcement Learning", "Computer Vision", "Multi-Agent"];
+// const FILTERS = ["All", "Robotics", "Reinforcement Learning", "Computer Vision", "Multi-Agent"];
 
-function matches(project: Project, filter: string) {
-  if (filter === "All") return true;
-  const text = [project.category, project.title, project.shortTitle, ...project.tags].join(" ").toLowerCase();
-  if (filter === "Robotics") return /robot|surgical|swarm|manipulation|mujoco|myosuite/.test(text);
-  if (filter === "Multi-Agent") return /multi-agent|swarm|maddpg|warehouse/.test(text);
-  return text.includes(filter.toLowerCase());
-}
+// function matches(project: Project, filter: string) {
+//   if (filter === "All") return true;
+//   const text = [project.category, project.title, project.shortTitle, ...project.tags].join(" ").toLowerCase();
+//   if (filter === "Robotics") return /robot|surgical|swarm|manipulation|mujoco|myosuite/.test(text);
+//   if (filter === "Multi-Agent") return /multi-agent|swarm|maddpg|warehouse/.test(text);
+//   return text.includes(filter.toLowerCase());
+// }
 
 export function ProjectsClient({ projects }: { projects: Project[] }) {
   // const [filter, setFilter] = useState("All");
