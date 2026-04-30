@@ -7,7 +7,7 @@ interface ButtonProps {
   href?: string;
   external?: boolean;
   variant?: "primary" | "secondary" | "ghost" | "teal";
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
   icon?: LucideIcon;
   loading?: boolean;
   disabled?: boolean;
@@ -30,6 +30,7 @@ export function Button({
   const classes = cn(
     "button",
     `button-${variant}`,
+    size === "xs" && "min-h-8 px-2.5 text-[0.75rem]",
     size === "sm" && "min-h-9 px-3",
     size === "lg" && "min-h-14 px-7",
     disabled && "button-disabled",

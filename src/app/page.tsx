@@ -4,11 +4,13 @@ import { SectionLabel } from "@/components/SectionLabel";
 import { ContactForm } from "@/components/ContactForm";
 import { PROJECTS } from "@/data/projects";
 
+import { PageTransition } from "@/components/PageTransition";
+
 export default function HomePage() {
   const selected = PROJECTS.slice(0, 3);
 
   return (
-    <>
+    <PageTransition>
       <AnimatedHero />
       <section className="section">
         <div className="container">
@@ -32,6 +34,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }

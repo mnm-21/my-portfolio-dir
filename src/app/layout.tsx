@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description:
     "Portfolio for Mayank Chandak, focused on robotics, reinforcement learning, computer vision, computational imaging, and intelligent systems.",
   icons: {
-    icon: "/assets/img/favicon.svg",
+    icon: "/favicon.svg",
   },
 };
 

@@ -7,14 +7,16 @@ export const metadata: Metadata = {
   description: "Research experience, internships, and education for Mayank Chandak.",
 };
 
+import { PageTransition } from "@/components/PageTransition";
+
 export default function JourneyPage() {
   return (
-    <>
+    <PageTransition>
       <section className="container page-hero" aria-labelledby="journey-title">
         <h1 className="page-title" id="journey-title">
           A Journey of Research and Engineering
         </h1>
-        <p className="page-lead mono">Reinforcement Learning / Computational Imaging / Manufacturing Automation / Mechanical Engineering</p>
+
       </section>
 
       <section className="container timeline" aria-label="Research and professional timeline">
@@ -37,6 +39,6 @@ export default function JourneyPage() {
           ))}
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }

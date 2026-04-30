@@ -6,6 +6,7 @@ import { MediaBlock } from "@/components/MediaBlock";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Tag } from "@/components/Tag";
 import { PROJECTS, getProjectBySlug } from "@/data/projects";
+import { PageTransition } from "@/components/PageTransition";
 
 interface ProjectPageProps {
   params: { slug: string };
@@ -44,7 +45,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
     });
 
   return (
-    <>
+    <PageTransition>
       <section className="container detail-hero">
         <div>
           <div className="breadcrumb">Projects / {project.shortTitle}</div>
@@ -143,6 +144,6 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
           ))}
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }

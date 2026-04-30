@@ -53,7 +53,7 @@ export function ProjectCard({ project, variant = "selected", index = 0 }: Projec
                 disabled={link.disabled}
                 variant={link.kind === "primary" ? "primary" : "secondary"}
                 icon={link.disabled ? Lock : link.external ? ExternalLink : ArrowRight}
-                size="sm"
+                size="xs"
               >
                 {link.label}
               </Button>
@@ -84,14 +84,14 @@ export function ProjectCard({ project, variant = "selected", index = 0 }: Projec
         </Tag>
         <h3 className="project-title">{project.shortTitle}</h3>
         <p className="project-summary">{project.summary}</p>
-        <div className="mt-auto pt-6 flex flex-wrap gap-2">
+        <div className="mt-auto pt-6 flex flex-wrap gap-1.5">
           {displayLinks.map((link) => (
             <Button
               key={link.label}
               href={link.disabled ? undefined : link.href}
               external={link.external}
               variant={link.kind === "primary" ? "primary" : "secondary"}
-              size="sm"
+              size="xs"
               disabled={link.disabled}
               className="px-3"
               icon={(link as ProjectLink & { icon?: LucideIcon }).icon || (link.external ? ExternalLink : ArrowRight)}

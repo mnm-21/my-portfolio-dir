@@ -42,9 +42,11 @@ const MATRIX = [
   ["Tools", ["Git", "Linux", "LaTeX", "VSCode"]],
 ];
 
+import { PageTransition } from "@/components/PageTransition";
+
 export default function SkillsPage() {
   return (
-    <>
+    <PageTransition>
       <section className="container page-hero" aria-labelledby="skills-title">
         <h1 className="page-title" id="skills-title">
           Expertise & Stack
@@ -87,6 +89,6 @@ export default function SkillsPage() {
           ))}
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }
