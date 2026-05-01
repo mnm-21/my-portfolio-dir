@@ -12,8 +12,8 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mon
 export const metadata: Metadata = {
   metadataBase: new URL("https://mayank-chandak.vercel.app"),
   title: {
-    default: "Mayank Chandak - Robotics, RL, and Computer Vision",
-    template: "%s - Mayank Chandak",
+    default: "Mayank Chandak",
+    template: "%s | Mayank Chandak",
   },
   description:
     "Portfolio for Mayank Chandak, focused on robotics, reinforcement learning, computer vision, computational imaging, and intelligent systems.",
