@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono, Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { PageTransition } from "@/components/PageTransition";
+import { GlowBubbles } from "@/components/GlowBubbles";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({ subsets: ["latin"], variable: "--font-display", weight: ["400", "500", "600", "700"] });
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`${sourceSerif.variable} ${sourceSans.variable} ${jetbrainsMono.variable}`}>
       <body>
+        <GlowBubbles />
         <div className="page-shell">
           <Nav />
           <main className="page-content">

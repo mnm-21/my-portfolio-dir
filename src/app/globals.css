@@ -55,21 +55,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: -22% -18%;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 12% 18%, rgba(227, 211, 183, 0.16), transparent 28%),
-    radial-gradient(circle at 82% 14%, rgba(184, 155, 98, 0.12), transparent 30%),
-    radial-gradient(circle at 54% 74%, rgba(244, 241, 234, 0.08), transparent 32%),
-    radial-gradient(circle at 18% 86%, rgba(184, 155, 98, 0.08), transparent 30%);
-  filter: blur(34px);
-  opacity: 0.78;
-  animation: ambient-drift 22s var(--ease-in-out) infinite alternate;
-}
+/* Background glow bubbles are now rendered by <GlowBubbles> in layout.tsx */
 
 body::after {
   content: "";
@@ -223,27 +209,128 @@ button {
   }
 }
 
+/* ─── Floating glow bubbles ─────────────────────────────────────────────── */
+
+/*
+  Each .glow-bubble reads its position / size / colour from CSS custom
+  properties set inline by <GlowBubbles>.  Two independent keyframe
+  animations run at different speeds so bubbles never move in sync:
+    • glow-drift   – Brownian-ish translate (8 waypoints, alternating)
+    • glow-pulse   – gentle scale + opacity breathing
+*/
+/* Base bubble style — drift animation name is set per-bubble via .glow-bubble-N */
+.glow-bubble {
+  position: absolute;
+  left: var(--cx);
+  top:  var(--cy);
+  width:  var(--r);
+  height: var(--r);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, var(--color), transparent 70%);
+  filter: blur(52px);
+  will-change: transform, opacity;
+  animation:
+    glow-pulse var(--pulse-dur) ease-in-out var(--pulse-delay) infinite;
+}
+
+/* Each bubble has its own drift keyframe — large, unique paths for true Brownian feel */
+.glow-bubble-0 { animation: glow-drift-0 var(--drift-dur) ease-in-out var(--drift-delay) infinite alternate, glow-pulse var(--pulse-dur) ease-in-out var(--pulse-delay) infinite; }
+.glow-bubble-1 { animation: glow-drift-1 var(--drift-dur) ease-in-out var(--drift-delay) infinite alternate, glow-pulse var(--pulse-dur) ease-in-out var(--pulse-delay) infinite; }
+.glow-bubble-2 { animation: glow-drift-2 var(--drift-dur) ease-in-out var(--drift-delay) infinite alternate, glow-pulse var(--pulse-dur) ease-in-out var(--pulse-delay) infinite; }
+.glow-bubble-3 { animation: glow-drift-3 var(--drift-dur) ease-in-out var(--drift-delay) infinite alternate, glow-pulse var(--pulse-dur) ease-in-out var(--pulse-delay) infinite; }
+.glow-bubble-4 { animation: glow-drift-4 var(--drift-dur) ease-in-out var(--drift-delay) infinite alternate, glow-pulse var(--pulse-dur) ease-in-out var(--pulse-delay) infinite; }
+.glow-bubble-5 { animation: glow-drift-5 var(--drift-dur) ease-in-out var(--drift-delay) infinite alternate, glow-pulse var(--pulse-dur) ease-in-out var(--pulse-delay) infinite; }
+
+/* Bubble 0 — upper-left, wide arc sweeping right then down */
+@keyframes glow-drift-0 {
+  0%   { transform: translate(-50%, -50%) translate(  0px,    0px); }
+  14%  { transform: translate(-50%, -50%) translate( 90px,  -60px); }
+  28%  { transform: translate(-50%, -50%) translate(160px,   40px); }
+  42%  { transform: translate(-50%, -50%) translate( 80px,  110px); }
+  57%  { transform: translate(-50%, -50%) translate(-40px,   80px); }
+  71%  { transform: translate(-50%, -50%) translate(-120px,  10px); }
+  85%  { transform: translate(-50%, -50%) translate(-70px, -90px);  }
+  100% { transform: translate(-50%, -50%) translate( 30px, -130px); }
+}
+
+/* Bubble 1 — upper-right, diagonal plunge left then spiral */
+@keyframes glow-drift-1 {
+  0%   { transform: translate(-50%, -50%) translate(  0px,    0px); }
+  12%  { transform: translate(-50%, -50%) translate(-100px,  50px); }
+  25%  { transform: translate(-50%, -50%) translate(-150px, -30px); }
+  38%  { transform: translate(-50%, -50%) translate( -60px, -110px);}
+  50%  { transform: translate(-50%, -50%) translate(  50px, -80px); }
+  63%  { transform: translate(-50%, -50%) translate( 140px,  20px); }
+  76%  { transform: translate(-50%, -50%) translate(  90px, 120px); }
+  88%  { transform: translate(-50%, -50%) translate( -20px,  90px); }
+  100% { transform: translate(-50%, -50%) translate(-110px, -50px); }
+}
+
+/* Bubble 2 — lower-center, tight wobble with sudden lurches */
+@keyframes glow-drift-2 {
+  0%   { transform: translate(-50%, -50%) translate(  0px,    0px); }
+  10%  { transform: translate(-50%, -50%) translate( 70px,  -80px); }
+  22%  { transform: translate(-50%, -50%) translate(-50px, -130px); }
+  35%  { transform: translate(-50%, -50%) translate(-140px, -40px); }
+  48%  { transform: translate(-50%, -50%) translate(-100px,  90px); }
+  60%  { transform: translate(-50%, -50%) translate(  20px, 120px); }
+  72%  { transform: translate(-50%, -50%) translate( 130px,  60px); }
+  86%  { transform: translate(-50%, -50%) translate( 110px, -70px); }
+  100% { transform: translate(-50%, -50%) translate(  40px, -100px);}
+}
+
+/* Bubble 3 — lower-left, slow figure-eight-ish */
+@keyframes glow-drift-3 {
+  0%   { transform: translate(-50%, -50%) translate(  0px,    0px); }
+  13%  { transform: translate(-50%, -50%) translate( 120px, -50px); }
+  26%  { transform: translate(-50%, -50%) translate( 80px,  -140px);}
+  39%  { transform: translate(-50%, -50%) translate(-30px, -100px); }
+  52%  { transform: translate(-50%, -50%) translate(-130px, -20px); }
+  65%  { transform: translate(-50%, -50%) translate(-90px,  100px); }
+  78%  { transform: translate(-50%, -50%) translate( 40px,  130px); }
+  90%  { transform: translate(-50%, -50%) translate( 140px,  50px); }
+  100% { transform: translate(-50%, -50%) translate( 60px,  -60px); }
+}
+
+/* Bubble 4 — center-right, erratic short bursts */
+@keyframes glow-drift-4 {
+  0%   { transform: translate(-50%, -50%) translate(  0px,    0px); }
+  11%  { transform: translate(-50%, -50%) translate( -80px,  70px); }
+  24%  { transform: translate(-50%, -50%) translate(-160px, -10px); }
+  36%  { transform: translate(-50%, -50%) translate( -90px, -100px);}
+  49%  { transform: translate(-50%, -50%) translate(  30px, -130px);}
+  62%  { transform: translate(-50%, -50%) translate( 120px, -70px); }
+  74%  { transform: translate(-50%, -50%) translate( 150px,  60px); }
+  87%  { transform: translate(-50%, -50%) translate(  60px, 130px); }
+  100% { transform: translate(-50%, -50%) translate( -50px,  80px); }
+}
+
+/* Bubble 5 — center-left, slow rolling drift */
+@keyframes glow-drift-5 {
+  0%   { transform: translate(-50%, -50%) translate(  0px,    0px); }
+  15%  { transform: translate(-50%, -50%) translate( 100px, -40px); }
+  30%  { transform: translate(-50%, -50%) translate( 140px,  80px); }
+  44%  { transform: translate(-50%, -50%) translate(  50px, 150px); }
+  58%  { transform: translate(-50%, -50%) translate( -80px, 100px); }
+  70%  { transform: translate(-50%, -50%) translate(-150px,  20px); }
+  83%  { transform: translate(-50%, -50%) translate(-110px, -90px); }
+  100% { transform: translate(-50%, -50%) translate( -10px, -140px);}
+}
+
+@keyframes glow-pulse {
+  0%   { opacity: 0.65; filter: blur(52px) scale(1);    }
+  25%  { opacity: 0.95; filter: blur(40px) scale(1.12); }
+  50%  { opacity: 0.55; filter: blur(62px) scale(0.90); }
+  75%  { opacity: 0.92; filter: blur(42px) scale(1.08); }
+  100% { opacity: 0.65; filter: blur(52px) scale(1);    }
+}
+
+/* Keep the old keyframe in case anything else still references it */
 @keyframes ambient-drift {
-  0% {
-    transform: translate3d(-2%, -1%, 0) scale(1);
-    opacity: 0.6;
-  }
-  25% {
-    transform: translate3d(2%, 3%, 0) scale(1.05);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translate3d(-3%, 2%, 0) scale(1.1);
-    opacity: 0.55;
-  }
-  75% {
-    transform: translate3d(4%, -2%, 0) scale(1.06);
-    opacity: 0.82;
-  }
-  100% {
-    transform: translate3d(-1%, 3%, 0) scale(1.04);
-    opacity: 0.7;
-  }
+  0%   { transform: translate3d(-2%, -1%, 0) scale(1);    opacity: 0.6;  }
+  50%  { transform: translate3d(-3%,  2%, 0) scale(1.1);  opacity: 0.55; }
+  100% { transform: translate3d(-1%,  3%, 0) scale(1.04); opacity: 0.7;  }
 }
 
 @keyframes cursor-blink {
