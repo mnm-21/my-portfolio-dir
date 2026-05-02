@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { MediaBlock } from "@/components/MediaBlock";
 import { Tag } from "@/components/Tag";
-import type { Project, ProjectLink } from "@/data/projects";
+import { type Project, type ProjectLink } from "../data/projects";
 import { cn } from "@/lib/utils";
 
 interface ProjectCardProps {
@@ -38,14 +38,14 @@ export function ProjectCard({ project, variant = "selected", index = 0 }: Projec
           <h2 className="project-title">{project.shortTitle}</h2>
           <p className="project-summary">{project.summary}</p>
           <div className="tag-row mt-5">
-            {project.tags.map((tag) => (
+            {project.tags.map((tag: string) => (
               <Tag key={tag} size="sm">
                 {tag}
               </Tag>
             ))}
           </div>
           <div className="project-actions">
-            {project.links.map((link) => (
+            {project.links.map((link: ProjectLink) => (
               <Button
                 key={link.label}
                 href={link.disabled ? undefined : link.href}
@@ -65,8 +65,8 @@ export function ProjectCard({ project, variant = "selected", index = 0 }: Projec
   }
 
   const displayLinks = project.links
-    .filter((l) => !(l.label === "Paper" && project.links.some((ll) => ll.label === "DOI")))
-    .map((l) => {
+    .filter((l: ProjectLink) => !(l.label === "Paper" && project.links.some((ll: ProjectLink) => ll.label === "DOI")))
+    .map((l: ProjectLink) => {
       if (l.label === "GitHub") return { ...l, label: "Repo", icon: Code };
       if (l.label === "DOI") return { ...l, label: "Paper", icon: FileText };
       return { ...l, icon: undefined };
@@ -85,7 +85,7 @@ export function ProjectCard({ project, variant = "selected", index = 0 }: Projec
         <h3 className="project-title">{project.shortTitle}</h3>
         <p className="project-summary">{project.summary}</p>
         <div className="mt-auto pt-6 flex flex-wrap gap-1.5">
-          {displayLinks.map((link) => (
+          {displayLinks.map((link: ProjectLink & { icon?: LucideIcon }) => (
             <Button
               key={link.label}
               href={link.disabled ? undefined : link.href}

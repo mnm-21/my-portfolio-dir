@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 // import { useMemo, useState } from "react";
 import { ProjectCard } from "@/components/ProjectCard";
-import type { Project } from "@/data/projects";
+import { type Project } from "../data/projects";
 // import { cn } from "@/lib/utils";
 
 // const FILTERS = ["All", "Robotics", "Reinforcement Learning", "Computer Vision", "Multi-Agent"];

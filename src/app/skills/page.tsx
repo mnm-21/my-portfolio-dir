@@ -10,36 +10,38 @@ export const metadata: Metadata = {
 const PRIMARY_SKILLS = [
   {
     title: "Programming",
-    description: "Research prototypes, simulations, model training, and engineering tooling.",
+    description: "Fluent in Python for research and ML, C++ for performance-critical systems, MATLAB for control and signal processing, and Bash for automation and tooling.",
     icon: Code2,
-    tags: ["Python", "C++", "MATLAB"],
+    tags: ["Python", "C++", "MATLAB", "Bash"],
   },
   {
     title: "Machine Learning & AI",
-    description: "Model development across reinforcement learning, vision, and learning-based perception.",
+    description: "End-to-end model development across reinforcement learning, computer vision, and generative AI, from research prototyping to training at scale.",
     icon: BrainCircuit,
-    tags: ["PyTorch", "TensorFlow", "Scikit-learn"],
+    tags: ["PyTorch", "TensorFlow", "Stable Baselines3", "HuggingFace", "LangChain"],
   },
   {
-    title: "Computer Vision & Data",
-    description: "Image, video, numerical, and experimental data workflows for research-grade systems.",
+    title: "Computer Vision & Imaging",
+    description: "Image and video restoration, multi-view geometry, depth-guided architectures, and downstream perception pipelines for autonomous systems.",
     icon: Eye,
-    tags: ["OpenCV", "NumPy", "SciPy", "Pandas"],
+    tags: ["OpenCV", "Pillow", "NumPy", "SciPy", "Pandas", "Matplotlib"],
   },
   {
     title: "Robotics & Simulation",
-    description: "Embodied systems in simulation with reproducible experimentation and control policies.",
+    description: "Physics-based simulation, embodied RL, surgical robotics, and multi-agent systems, from task design to policy deployment.",
     icon: Bot,
-    tags: ["MuJoCo", "ROS2", "CoppeliaSim", "Isaac Sim"],
+    tags: ["MuJoCo", "SOFA", "ROS", "CoppeliaSim", "MyoSuite", "Robosuite"],
   },
 ];
 
-const MATRIX = [
-  ["Languages", ["Python", "C++", "MATLAB"]],
-  ["Frameworks", ["PyTorch", "TensorFlow", "Scikit-learn"]],
-  ["Simulation", ["MuJoCo", "ROS2", "CoppeliaSim", "Isaac Sim"]],
-  ["Vision", ["OpenCV", "NumPy", "SciPy", "Pandas"]],
-  ["Tools", ["Git", "Linux", "LaTeX", "VSCode"]],
+const MATRIX: [string, string[]][] = [
+  ["Languages", ["Python", "C++", "MATLAB", "Java", "Bash / zsh"]],
+  ["ML Frameworks", ["PyTorch", "PyTorch Lightning", "TensorFlow", "Keras", "Scikit-learn"]],
+  ["Vision & Data", ["OpenCV", "Pillow", "NumPy", "SciPy", "Pandas", "Matplotlib", "Seaborn"]],
+  ["GenAI & NLP", ["HuggingFace", "LangChain", "Streamlit"]],
+  ["Simulation", ["MuJoCo", "SOFA Framework", "MyoSuite", "Robosuite", "CoppeliaSim", "ROS"]],
+  ["CAD & Design", ["SolidWorks", "AutoCAD", "Fusion 360", "Creo"]],
+  ["Tools", ["Git", "Linux (Ubuntu)", "VSCode", "LaTeX", "Overleaf", "Canva"]],
 ];
 
 import { PageTransition } from "@/components/PageTransition";
@@ -51,7 +53,9 @@ export default function SkillsPage() {
         <h1 className="page-title" id="skills-title">
           Expertise & Stack
         </h1>
-        <p className="page-lead">A technical toolkit built for robotics, RL, and vision research.</p>
+        <p className="page-lead">
+          A technical toolkit built across robotics, reinforcement learning, computer vision, and computational imaging research.
+        </p>
       </section>
 
       <section className="container section-compact">
@@ -78,10 +82,10 @@ export default function SkillsPage() {
         <div className="matrix">
           <h2 className="section-title my-10">Full Stack</h2>
           {MATRIX.map(([label, items]) => (
-            <div className="matrix-row" key={label as string}>
-              <div className="matrix-label">{label as string}</div>
+            <div className="matrix-row" key={label}>
+              <div className="matrix-label">{label}</div>
               <div className="matrix-items">
-                {(items as string[]).map((item) => (
+                {items.map((item) => (
                   <span key={item}>{item}</span>
                 ))}
               </div>

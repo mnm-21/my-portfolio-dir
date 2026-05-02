@@ -2,7 +2,7 @@ import { AnimatedHero } from "@/components/AnimatedHero";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SectionLabel } from "@/components/SectionLabel";
 import { ContactForm } from "@/components/ContactForm";
-import { PROJECTS } from "@/data/projects";
+import { PROJECTS } from "../data/projects";
 
 import { PageTransition } from "@/components/PageTransition";
 
