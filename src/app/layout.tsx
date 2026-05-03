@@ -36,7 +36,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <div className="container footer-inner">
               <div>
                 <div className="footer-brand">Mayank Chandak</div>
-                <div>© 2026 Mayank Chandak</div>
+                <div>© 2026 Mayank Chandak Portfolio. All rights reserved.</div>
               </div>
               <nav className="footer-links" aria-label="Footer links">
                 <a href="/projects">Projects</a>
