@@ -84,7 +84,7 @@ export function ProjectCard({ project, variant = "selected", index = 0 }: Projec
         </Tag>
         <h3 className="project-title">{project.shortTitle}</h3>
         <p className="project-summary">{project.summary}</p>
-        <div className="mt-auto pt-6 flex flex-wrap gap-1.5">
+        <div className="mt-auto pt-6 flex flex-nowrap gap-1">
           {displayLinks.map((link: ProjectLink & { icon?: LucideIcon }) => (
             <Button
               key={link.label}
