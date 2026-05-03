@@ -41,7 +41,7 @@ const MATRIX: [string, string[]][] = [
   ["GenAI & NLP", ["HuggingFace", "LangChain", "Streamlit"]],
   ["Simulation", ["MuJoCo", "SOFA Framework", "MyoSuite", "Robosuite", "CoppeliaSim", "ROS2"]],
   ["CAD & Design", ["SolidWorks", "AutoCAD", "Fusion 360", "Creo"]],
-  ["Tools", ["Git", "Linux (Ubuntu)", "VSCode", "LaTeX", "Overleaf", "Canva"]],
+  ["Tools", ["Git", "Linux (Ubuntu)", "VSCode", "LaTeX"]],
 ];
 
 import { PageTransition } from "@/components/PageTransition";
