@@ -2,9 +2,10 @@ interface ProjectMediaProps {
   src?: string
   alt: string
   className?: string
+  controls?: boolean
 }
 
-export default function ProjectMedia({ src, alt, className }: ProjectMediaProps) {
+export default function ProjectMedia({ src, alt, className, controls = false }: ProjectMediaProps) {
   if (!src) {
     return (
       <div className={`${className ?? ''} abstract-project-media`} role="img" aria-label={alt}>
@@ -21,7 +22,8 @@ export default function ProjectMedia({ src, alt, className }: ProjectMediaProps)
     return (
       <video
         className={className}
-        autoPlay
+        autoPlay={!controls}
+        controls={controls}
         loop
         muted
         playsInline

@@ -1,4 +1,5 @@
-import { ArrowLeft, ExternalLink, FileText, Github } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowLeft, ExternalLink, FileText, Github, Maximize2, X } from 'lucide-react';
 import type { ProjectData } from '../config';
 import { projectDetailConfig } from '../config';
 import ProjectMedia from '../components/ProjectMedia';
@@ -9,6 +10,21 @@ interface Props {
 }
 
 export default function ProjectDetail({ project, onBack }: Props) {
+  const [isMediaOpen, setIsMediaOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isMediaOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMediaOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isMediaOpen]);
+
   return (
     <div className="project-detail-page">
       <div className="project-detail-bar">
@@ -20,9 +36,17 @@ export default function ProjectDetail({ project, onBack }: Props) {
 
       <main className="project-detail-shell">
         <aside className="project-detail-aside">
-          <div className="project-detail-media-frame">
+          <button
+            className="project-detail-media-frame project-detail-media-button"
+            type="button"
+            onClick={() => setIsMediaOpen(true)}
+            aria-label={`Expand media for ${project.title}`}
+          >
             <ProjectMedia src={project.image} alt={project.media.alt} className="project-media" />
-          </div>
+            <span className="media-expand-indicator" aria-hidden="true">
+              <Maximize2 size={14} />
+            </span>
+          </button>
 
           <div className="project-detail-meta">
             {project.meta.map((item) => (
@@ -116,6 +140,28 @@ export default function ProjectDetail({ project, onBack }: Props) {
           </section>
         </article>
       </main>
+
+      {isMediaOpen && (
+        <div className="media-viewer" role="dialog" aria-modal="true" aria-label={`${project.title} media preview`}>
+          <button
+            className="media-viewer-backdrop"
+            type="button"
+            aria-label="Close media preview"
+            onClick={() => setIsMediaOpen(false)}
+          />
+          <div className="media-viewer-panel">
+            <div className="media-viewer-topbar">
+              <span>{project.title}</span>
+              <button className="media-viewer-close" type="button" onClick={() => setIsMediaOpen(false)} aria-label="Close media preview">
+                <X size={18} aria-hidden="true" />
+              </button>
+            </div>
+            <div className="media-viewer-frame">
+              <ProjectMedia src={project.image} alt={project.media.alt} className="project-media media-viewer-media" controls />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
