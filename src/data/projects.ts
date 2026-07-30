@@ -43,9 +43,9 @@ export const PROJECTS: Project[] = [
     title: "Surgical Phase-Aware RL for Autonomous Laparoscopic Camera Control",
     shortTitle: "Phase-Aware Laparoscopic Camera Control",
     category: "Reinforcement Learning",
-    tags: ["RL", "Surgical Robotics", "SOFA", "PPO", "IROS 2026"],
+    tags: ["RL", "Surgical Robotics", "SOFA", "PPO", "Research"],
     summary:
-      "A phase-aware reinforcement learning framework for autonomous laparoscopic camera control, submitted to IROS 2026. The policy adapts centering, zoom, and motion objectives dynamically across surgical phases, outperforming both analytic heuristics and phase-blind RL baselines.",
+      "A phase-aware reinforcement learning framework for autonomous laparoscopic camera control. The policy adapts centering, zoom, and motion objectives dynamically across surgical phases, outperforming both analytic heuristics and phase-blind RL baselines.",
     media: {
       type: "video",
       src: "/assets/video/laparoscopic_cam_view.mp4",
@@ -59,7 +59,7 @@ export const PROJECTS: Project[] = [
     detail: {
       overview: [
         "Robotic-assisted laparoscopic surgery still relies on a human assistant (or a static mechanical arm) to operate the endoscopic camera. This introduces latency, fatigue-induced drift, and increased cognitive load on the surgeon. Existing autonomous approaches are reactive: they respond to current error using visual servoing or fixed geometric objectives, with no awareness of what phase the procedure is in.",
-        "This project develops the first phase-aware reinforcement learning framework for continuous 4-DOF laparoscopic camera control, submitted as a full paper to IEEE/RSJ IROS 2026. The policy is conditioned on an explicit surgical phase signal and learned inside a custom physics-based SOFA simulation of a laparoscopic cholecystectomy, with deformable tissue, multi-instrument interaction, and stochastic human-like instrument noise.",
+        "This project develops a phase-aware reinforcement learning framework for continuous 4-DOF laparoscopic camera control. The policy is conditioned on an explicit surgical phase signal and learned inside a custom physics-based SOFA simulation of a laparoscopic cholecystectomy, with deformable tissue, multi-instrument interaction, and stochastic human-like instrument noise.",
       ],
       sections: [
         {

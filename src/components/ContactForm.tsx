@@ -1,74 +1,108 @@
-"use client";
+import { useState } from 'react';
+import type { FormEvent } from 'react';
+import { Send } from 'lucide-react';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Send } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "@/components/Button";
+type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 
-const schema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters."),
-  email: z.string().email("Enter a valid email address."),
-  subject: z.string().min(2, "Subject must be at least 2 characters."),
-  message: z.string().min(10, "Message must be at least 10 characters."),
-});
+interface ContactValues {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
 
-type ContactValues = z.infer<typeof schema>;
+const initialValues: ContactValues = {
+  name: '',
+  email: '',
+  subject: '',
+  message: '',
+};
 
-export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [note, setNote] = useState("");
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ContactValues>({ resolver: zodResolver(schema) });
+function validate(values: ContactValues) {
+  if (values.name.trim().length < 2) return 'Name must be at least 2 characters.';
+  if (!/^\S+@\S+\.\S+$/.test(values.email)) return 'Enter a valid email address.';
+  if (values.subject.trim().length < 2) return 'Subject must be at least 2 characters.';
+  if (values.message.trim().length < 10) return 'Message must be at least 10 characters.';
+  return '';
+}
 
-  async function onSubmit(values: ContactValues) {
-    setStatus("loading");
-    setNote("");
+export default function ContactForm() {
+  const [values, setValues] = useState<ContactValues>(initialValues);
+  const [status, setStatus] = useState<FormStatus>('idle');
+  const [note, setNote] = useState('');
 
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-    const payload = (await response.json()) as { success?: boolean; error?: string };
-    if (!response.ok || !payload.success) {
-      setStatus("error");
-      setNote(payload.error || "Message could not be sent.");
+    const validationMessage = validate(values);
+    if (validationMessage) {
+      setStatus('error');
+      setNote(validationMessage);
       return;
     }
 
-    setStatus("success");
-    setNote("Message sent.");
-    reset();
-    window.setTimeout(() => {
-      setStatus("idle");
-      setNote("");
-    }, 3000);
+    setStatus('loading');
+    setNote('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+      const payload = await response.json() as { success?: boolean; error?: string };
+
+      if (!response.ok || !payload.success) {
+        throw new Error(payload.error || 'Message could not be sent.');
+      }
+
+      setStatus('success');
+      setNote('Message sent.');
+      setValues(initialValues);
+      window.setTimeout(() => {
+        setStatus('idle');
+        setNote('');
+      }, 3200);
+    } catch (error) {
+      setStatus('error');
+      setNote(error instanceof Error ? error.message : 'Message could not be sent.');
+    }
+  }
+
+  function update(field: keyof ContactValues, value: string) {
+    setValues((current) => ({ ...current, [field]: value }));
   }
 
   return (
-    <form className="contact-form" onSubmit={handleSubmit(onSubmit)}>
-      {(["name", "email", "subject", "message"] as const).map((field) => (
-        <div className="field" key={field}>
-          {field === "message" ? (
-            <textarea id={field} placeholder=" " rows={6} {...register(field)} />
-          ) : (
-            <input id={field} placeholder=" " type={field === "email" ? "email" : "text"} {...register(field)} />
-          )}
-          <label htmlFor={field}>{field[0].toUpperCase() + field.slice(1)}</label>
-          {errors[field] ? <div className="field-error">x {errors[field]?.message}</div> : null}
-        </div>
-      ))}
-      <Button type="submit" loading={status === "loading"} icon={Send}>
-        {status === "loading" ? "Sending..." : status === "success" ? "Message Sent" : "Send Message"}
-      </Button>
-      {note ? <p className="form-note">{note}</p> : null}
+    <form className="contact-form" onSubmit={submit}>
+      <div className="contact-field-grid">
+        <label>
+          <span>Name</span>
+          <input value={values.name} onChange={(event) => update('name', event.target.value)} autoComplete="name" />
+        </label>
+        <label>
+          <span>Email</span>
+          <input value={values.email} onChange={(event) => update('email', event.target.value)} type="email" autoComplete="email" />
+        </label>
+      </div>
+
+      <label>
+        <span>Subject</span>
+        <input value={values.subject} onChange={(event) => update('subject', event.target.value)} />
+      </label>
+
+      <label>
+        <span>Message</span>
+        <textarea value={values.message} onChange={(event) => update('message', event.target.value)} rows={7} />
+      </label>
+
+      <div className="contact-form-actions">
+        <button type="submit" disabled={status === 'loading'}>
+          <Send size={16} aria-hidden="true" />
+          {status === 'loading' ? 'Sending...' : status === 'success' ? 'Message sent' : 'Send message'}
+        </button>
+        {note && <p className={status === 'error' ? 'contact-note error' : 'contact-note'}>{note}</p>}
+      </div>
     </form>
   );
 }
