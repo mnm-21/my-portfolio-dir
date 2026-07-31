@@ -92,7 +92,6 @@ export interface FooterConfig {
   contactEmail: string
   socials: FooterEntry[]
   copyright: string
-  videoPath: string
 }
 
 export interface ProjectDetailConfig {
@@ -232,7 +231,6 @@ export const footerConfig: FooterConfig = {
     { text: 'GitHub', href: 'https://github.com/mnm-21' },
   ],
   copyright: '© 2026 Mayank Chandak. All rights reserved.',
-  videoPath: '/assets/video/smavnet_wind.mp4',
 }
 
 export const projectDetailConfig: ProjectDetailConfig = {
