@@ -228,7 +228,7 @@ export const footerConfig: FooterConfig = {
   brandName: 'Mayank Chandak',
   contactEmail: 'mayank.chandak21@gmail.com',
   socials: [
-    { text: 'LinkedIn', href: 'https://www.linkedin.com/in/mayank-chandak/' },
+    { text: 'LinkedIn', href: 'https://www.linkedin.com/in/mayank-chandak-8abb382ab/' },
     { text: 'GitHub', href: 'https://github.com/mnm-21' },
   ],
   copyright: '© 2026 Mayank Chandak. All rights reserved.',
