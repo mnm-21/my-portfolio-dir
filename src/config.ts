@@ -209,9 +209,9 @@ export const educationConfig: EducationConfig = {
   title: 'Academic path',
   entries: [
     {
-      title: "Incoming CMU MRSD '28",
+      title: "CMU MRSD '28",
       institution: 'Carnegie Mellon University',
-      detail: 'Master of Science in Robotic Systems Development, joining Fall 2026',
+      detail: 'Master of Science in Robotic Systems Development',
     },
     {
       title: 'B.Tech Mechanical Engineering',
