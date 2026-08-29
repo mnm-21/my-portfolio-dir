@@ -144,7 +144,7 @@ export const siteConfig: SiteConfig = {
 
 export const navigationConfig: NavigationConfig = {
   brandMark: 'MC',
-  cvHref: '/Mayank_CV.pdf',
+  cvHref: '/CMU_Resume.pdf',
   links: [
     { label: 'Work', targetId: 'gallery' },
     { label: 'Method', targetId: 'philosophy' },

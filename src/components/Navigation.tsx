@@ -91,7 +91,7 @@ export default function Navigation() {
             href={navigationConfig.cvHref}
             download
           >
-            <span>Download CV</span>
+            <span>Download Resume</span>
             <Download size={14} aria-hidden="true" />
           </a>
         )}

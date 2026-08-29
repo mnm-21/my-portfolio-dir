@@ -1,12 +1,25 @@
 <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="30%" cy="20%" r="85%">
+      <stop offset="0" stop-color="#0E2A3F"/>
+      <stop offset="0.5" stop-color="#071624"/>
+      <stop offset="1" stop-color="#02050A"/>
+    </radialGradient>
+    <linearGradient id="edge" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7BDCFF" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#14243A" stop-opacity="0.8"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="url(#edge)" stroke-width="2"/>
   <text
     x="32"
-    y="39"
+    y="41"
     fill="#FFFFFF"
     font-family="Georgia, 'Times New Roman', serif"
-    font-size="24"
-    font-weight="400"
-    letter-spacing="3"
+    font-size="35"
+    font-weight="500"
+    letter-spacing="0"
     text-anchor="middle"
   >MC</text>
 </svg>
