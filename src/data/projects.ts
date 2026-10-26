@@ -38,8 +38,88 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    id: "phase-aware-laparoscopic-camera-control",
+    id: "unitree-g1-sonic-teleop",
     cardNumber: 1,
+    title: "Whole-Body VR Teleoperation & Deployment of Unitree G1 with NVIDIA GR00T SONIC",
+    shortTitle: "Unitree G1 SONIC Teleop",
+    category: "Humanoid Robotics",
+    tags: ["Humanoid", "Teleoperation", "NVIDIA GR00T", "Unitree G1", "C++", "ROS2/DDS"],
+    summary:
+      "End-to-end whole-body VR teleoperation system for the Unitree G1 humanoid using NVIDIA GR00T SONIC. Features neck-mounted Meta Quest 3S tracking, body-follow locomotion, hot controller handover without a gantry, and 500 Hz low-level control deployed on both tethered RTX 4090 and onboard Jetson Orin NX.",
+    media: {
+      type: "video",
+      src: "/assets/video/unitree_g1_sonic_teleop.mp4",
+      alt: "Teleoperating Unitree G1 with Meta Quest 3S at SF Long Horizon Physical AI Summit",
+    },
+    links: [
+      { label: "Details", href: "/projects/unitree-g1-sonic-teleop", kind: "primary" },
+      { label: "Summit", href: "https://www.longhorizonai.com/", external: true },
+    ],
+    detail: {
+      overview: [
+        "Whole-body teleoperation of a 29-DOF Unitree G1 humanoid equipped with Dex3-1 dexterous hands using NVIDIA GR00T-WholeBodyControl (SONIC v1.1). SONIC couples a learned locomotion planner, whole-body encoder, and decoder policy to track continuous upper-body and locomotion targets while maintaining dynamic balance.",
+        "To teleoperate without bulky motion-capture rigs or full-body tracking suits, we developed a neck-mounted VR interface using a Meta Quest 3S and Touch controllers. Demonstrated live at the SF Long Horizon Physical AI Summit (Oct 20-21, 2026), operating untethered and gantry-free.",
+      ],
+      sections: [
+        {
+          title: "VR Interface & Teleoperation Geometry",
+          bullets: [
+            "Neck-Mounted Geometry: Quest 3S hung around the operator's neck to track torso orientation and linear velocity directly; converted OpenXR frames to robot root frame and calibrated mount pitch",
+            "Yaw-Isolated Wrists: Expressed hand targets in a yaw-only root frame, making wrist targets invariant to operator head tilt or VR recentering",
+            "Body-Follow Locomotion: Operator walking triggers robot gait via 0.4s windowed velocity estimation with hysteresis (start >0.25 m/s, stop <0.12 m/s) to filter stationary swaying",
+            "Ruckig Jerk-Limited Smoothing: Interpolated arm/wrist commands and boosted planner rates from 20 to 50 Hz, slashing target acceleration RMS by ~10x (43 to 4.3 m/s²) with only 20-40 ms latency",
+            "Dex3-1 Hand Control: Continuous trigger-controlled grasping with anti-overheat stall protection (limiting command if stall persists >0.4s), plus simulation-tested bare-hand retargeting",
+          ],
+        },
+        {
+          title: "Compute, Architecture & Hardware Deployment",
+          bullets: [
+            "Tethered & Onboard Pipelines: Supported both a lab workstation (RTX 4090, TensorRT 10.13 engines in FP32) and fully onboard execution on the robot's Jetson Orin NX (JetPack 6.2)",
+            "Distributed Control Loop: Quest (TCP/Wi-Fi) → Python Streamer (ZMQ) → C++ SONIC Deploy (Input 100 Hz, Policy 50 Hz, Planner 10 Hz) → CycloneDDS (500 Hz rt/lowcmd) → G1 Motors",
+            "Air-Gapped Safety: Only the high-level VR stream ran over Wi-Fi; the critical 500 Hz motor balance loop was strictly maintained over dedicated hardware Ethernet / onboard bus",
+            "Isolated Deployment Kit: Packaged an automated installer for JetPack 6.2 on ARM64 with SHA-256 validation, network self-tests, and CycloneDDS C++/Python built from source",
+          ],
+        },
+        {
+          title: "Safety Engineering & Gantry-Free Hot Handover",
+          bullets: [
+            "Hot Handover (~145 ms): Seamless zero-gantry transition from factory controller (chair stand-up) to learned SONIC policy, verified with 4/4 clean transitions on real hardware",
+            "Safe Hand-back (14-24 ms): Engineered multi-threaded state transitions waiting for factory balance response before relinquishing control, closing previous firmware gaps",
+            "13-State Posture Detection: Fused IMU roll/pitch with Pinocchio forward kinematics to classify sitting, standing, squatting, and lying postures for automated state machine transitions",
+            "Fail-Closed Preflight: Passive DDS bus sniffer to prevent concurrent motor write conflicts, crash-tolerant streamer fallbacks (explicit IDLE commands), and terminal-only damping stops",
+            "Testing Rigor: Over 150 unit and end-to-end tests across headless MuJoCo simulations, scripted Quest mocks, crash injections, and 500+ state machine permutations",
+          ],
+        },
+        {
+          title: "Summit Demonstration & Real-Robot Results",
+          paragraphs: [
+            "Successfully demoed real-robot teleoperation at the SF Long Horizon Physical AI Summit (Oct 20-21, 2026). The robot demonstrated smooth gantry-free chair stand-up, hot handover into learned SONIC control, responsive walking via body-follow, and continuous dexterous manipulation with Dex3-1 hands.",
+          ],
+        },
+      ],
+      future: [
+        "Deploy bare-hand vision retargeting (DexPilot) from simulation directly onto physical hardware",
+        "Implement autonomous recovery behaviors for aggressive dynamic slips",
+        "Integrate stereo ego-vision feed directly into the operator's VR display for immersive telepresence",
+      ],
+      stack: [
+        "Unitree G1",
+        "NVIDIA GR00T",
+        "SONIC",
+        "Meta Quest 3S / OpenXR",
+        "C++",
+        "Python",
+        "TensorRT",
+        "CycloneDDS",
+        "Pinocchio",
+        "Ruckig",
+        "MuJoCo",
+      ],
+    },
+  },
+  {
+    id: "phase-aware-laparoscopic-camera-control",
+    cardNumber: 2,
     title: "Surgical Phase-Aware RL for Autonomous Laparoscopic Camera Control",
     shortTitle: "Phase-Aware Laparoscopic Camera Control",
     category: "Reinforcement Learning",
@@ -112,7 +192,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "flaregs-4d-flare-removal",
-    cardNumber: 2,
+    cardNumber: 3,
     title: "FlareGS: 4D Flare Removal using Gaussian Splatting for Urban Scenes",
     shortTitle: "FlareGS",
     category: "Computational Imaging",
@@ -186,7 +266,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "myofootball-musculoskeletal-control",
-    cardNumber: 3,
+    cardNumber: 4,
     title: "MyoFootball: Reinforcement Learning for Musculoskeletal Control",
     shortTitle: "MyoFootball",
     category: "Biomechanical RL",
@@ -249,7 +329,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "smavnet-wind-aware-swarm",
-    cardNumber: 4,
+    cardNumber: 5,
     title: "SMAVNET Reproduction and Wind-Aware Swarm Stabilization",
     shortTitle: "SMAVNET Wind-Aware Swarms",
     category: "Swarm Robotics",
@@ -310,7 +390,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "multi-agent-warehouse-automation",
-    cardNumber: 5,
+    cardNumber: 6,
     title: "Multi-Agent Warehouse Automation with Reinforcement Learning and Planning",
     shortTitle: "Multi-Agent Warehouse Automation",
     category: "Multi-Agent Systems",
@@ -367,7 +447,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "vidflarenet-video-flare-removal",
-    cardNumber: 6,
+    cardNumber: 7,
     title: "VidFlareNet: Deep Learning for Flare Removal in Videos",
     shortTitle: "VidFlareNet",
     category: "Computer Vision",
@@ -420,7 +500,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "maddpg-pytorch-implementation",
-    cardNumber: 7,
+    cardNumber: 8,
     title: "MADDPG Implementation in PyTorch",
     shortTitle: "MADDPG PyTorch",
     category: "Reinforcement Learning",
@@ -462,7 +542,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "td3-robotic-arm-manipulation",
-    cardNumber: 8,
+    cardNumber: 9,
     title: "TD3 Reinforcement Learning for Robotic Arm Manipulation",
     shortTitle: "TD3 Robotic Arm Manipulation",
     category: "Robotic Manipulation",

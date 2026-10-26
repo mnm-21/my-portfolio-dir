@@ -99,6 +99,7 @@ export interface ProjectDetailConfig {
 }
 
 const PROJECT_YEARS: Record<string, string> = {
+  'unitree-g1-sonic-teleop': '2026',
   'phase-aware-laparoscopic-camera-control': '2025-2026',
   'flaregs-4d-flare-removal': '2024-2025',
   'myofootball-musculoskeletal-control': '2024',
