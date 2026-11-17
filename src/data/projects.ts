@@ -118,8 +118,71 @@ export const PROJECTS: Project[] = [
     },
   },
   {
-    id: "phase-aware-laparoscopic-camera-control",
+    id: "faster-agentic-robotics",
     cardNumber: 2,
+    title: "FAR: Faster Agentic Robotics with Fewer Tokens",
+    shortTitle: "Faster Agentic Robotics (FAR)",
+    category: "Agentic Robotics Research",
+    tags: ["Agentic Robotics", "Skill Transfer", "Kinova Gen3", "MuJoCo", "Embodied AI", "Research"],
+    summary:
+      "An equal-contribution research project studying whether coding agents can program real robots more efficiently by reusing verified skills across tasks. Across 10 Kinova Gen3 transfers, the skill-library condition reduced mean agent working time by 45% and model tokens by 31% versus from-scratch baselines.",
+    media: {
+      type: "image",
+      src: "/assets/img/far_method.png",
+      alt: "FAR workflow: retain verified robot skills, adapt them to a new task, then execute and refine on a robot or simulator",
+    },
+    links: [
+      { label: "Details", href: "/projects/faster-agentic-robotics", kind: "primary" },
+      { label: "Project Page", href: "https://r2r-cmu.github.io/faster-agentic-robotics/", external: true },
+      { label: "Skill Transfer Table", href: "https://r2r-cmu.github.io/faster-agentic-robotics/skill-transfer/table.ca8e53fc5977110c.html", external: true },
+    ],
+    detail: {
+      overview: [
+        "Faster Agentic Robotics (FAR) asks whether a coding agent can build a new robot task program faster by reusing verified code from a different task on the same robot. Instead of receiving a prewritten task solution, the agent receives human demonstrations, calibration, a robot interface, and a compact library containing hardware-tested skills from earlier runs.",
+        "As an equal-contribution co-author, I worked with the team on this study of code reuse for agentic robot programming. The project evaluates the approach both in simulation and on two Kinova Gen3 arms performing tabletop manipulation tasks.",
+      ],
+      sections: [
+        {
+          title: "Verified Skill Transfer",
+          paragraphs: [
+            "Each skill library packages code from successful runs with an index, on-demand skill cards, and the exact source files. A recipient agent decides what to apply, adapt, or reject, while rebuilding task-specific perception and behavior for the new demonstrations and recalibrating to its robot.",
+          ],
+          bullets: [
+            "Transfer reusable perception, kinematics, motion execution, and safety routines between tasks on the same arm",
+            "Keep successful source runs separate so agents can inspect alternate verified implementations",
+            "Use simulation replay, execution feedback, and operator-verified outcomes in the physical-robot workflow",
+          ],
+        },
+        {
+          title: "Simulation and Real-Robot Evaluation",
+          paragraphs: [
+            "The study includes five Embodied First Exam simulation tasks, each with three seeds per condition, and ten physical transfers across two Kinova Gen3 arms. In the real-robot comparison, the baseline agent receives task demonstrations, calibration, and the robot interface; the transfer agent also receives a skill library from a solved donor task. Reported physical results average two seeds per transfer, using Opus 5.5 at medium effort.",
+          ],
+        },
+        {
+          title: "Results",
+          bullets: [
+            "Across ten physical transfers, mean agent working time decreased 45% and model tokens decreased 31% with skill transfer",
+            "Across five simulation tasks, agent time decreased 14–23% and model tokens decreased 25–32%",
+            "Agents reused code while adapting task logic and calibration to new objects, layouts, and tasks",
+          ],
+        },
+      ],
+      stack: [
+        "Kinova Gen3",
+        "Robotiq 2F-85",
+        "Claude Code / Opus 5.5",
+        "MuJoCo",
+        "Embodied First Exam",
+        "RealSense",
+        "Kortex API",
+        "Python",
+      ],
+    },
+  },
+  {
+    id: "phase-aware-laparoscopic-camera-control",
+    cardNumber: 3,
     title: "Surgical Phase-Aware RL for Autonomous Laparoscopic Camera Control",
     shortTitle: "Phase-Aware Laparoscopic Camera Control",
     category: "Reinforcement Learning",
@@ -192,7 +255,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "flaregs-4d-flare-removal",
-    cardNumber: 3,
+    cardNumber: 4,
     title: "FlareGS: 4D Flare Removal using Gaussian Splatting for Urban Scenes",
     shortTitle: "FlareGS",
     category: "Computational Imaging",
@@ -266,7 +329,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "myofootball-musculoskeletal-control",
-    cardNumber: 4,
+    cardNumber: 5,
     title: "MyoFootball: Reinforcement Learning for Musculoskeletal Control",
     shortTitle: "MyoFootball",
     category: "Biomechanical RL",
@@ -329,7 +392,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "smavnet-wind-aware-swarm",
-    cardNumber: 5,
+    cardNumber: 6,
     title: "SMAVNET Reproduction and Wind-Aware Swarm Stabilization",
     shortTitle: "SMAVNET Wind-Aware Swarms",
     category: "Swarm Robotics",
@@ -390,7 +453,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "multi-agent-warehouse-automation",
-    cardNumber: 6,
+    cardNumber: 7,
     title: "Multi-Agent Warehouse Automation with Reinforcement Learning and Planning",
     shortTitle: "Multi-Agent Warehouse Automation",
     category: "Multi-Agent Systems",
@@ -447,7 +510,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "vidflarenet-video-flare-removal",
-    cardNumber: 7,
+    cardNumber: 8,
     title: "VidFlareNet: Deep Learning for Flare Removal in Videos",
     shortTitle: "VidFlareNet",
     category: "Computer Vision",
@@ -500,7 +563,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "maddpg-pytorch-implementation",
-    cardNumber: 8,
+    cardNumber: 9,
     title: "MADDPG Implementation in PyTorch",
     shortTitle: "MADDPG PyTorch",
     category: "Reinforcement Learning",
@@ -542,7 +605,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "td3-robotic-arm-manipulation",
-    cardNumber: 9,
+    cardNumber: 10,
     title: "TD3 Reinforcement Learning for Robotic Arm Manipulation",
     shortTitle: "TD3 Robotic Arm Manipulation",
     category: "Robotic Manipulation",
